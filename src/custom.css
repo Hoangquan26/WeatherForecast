@@ -1,0 +1,9 @@
+@layer utilities
+{
+    .card-color {
+        background-color: #D2DFFF;
+    }
+    .card-image-color {
+        background-color: #9AB6FF;
+    }
+}

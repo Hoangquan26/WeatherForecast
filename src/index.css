@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .card-color {
+        background-color: #D2DFFF;
+    }
+    .card-image-color {
+        background-color: #9AB6FF;
+    }
+    .today-color {
+        background: linear-gradient(45deg, #4F7FFA, #335FD1);
+    }
+    .today-card-color {
+        background-color: #FBFBFB;
+    }
+}
