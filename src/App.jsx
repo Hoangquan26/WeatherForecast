@@ -15,17 +15,17 @@ function App() {
   const [onHomePage, setOnHomePage] = useState(true)
   const [otherCity, setOtherCity] = useState([])
   useEffect(() => {
+    let timeOutId = null
     let ignore = false
     if(!isLoading) {
       setIsLoading(true)
-      setTimeout(() => {
+      timeOutId = setTimeout(() => {
         setIsLoading(false)
       }, 2000);
     }
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${myApiKey}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if(!ignore){
         setWeatherObject({
           ...data
@@ -35,7 +35,10 @@ function App() {
       }
     })
     .catch(error => console.error(error))
-    return () => ignore = true
+    return () => {
+      ignore = true
+      clearTimeout(timeOutId)
+    }
   },[currentCity])
   const city = [
       'London',
@@ -89,8 +92,12 @@ function App() {
         <onHomePageContext.Provider value={setOnHomePage}>
           <setOnHomePageContext.Provider value = {onHomePage}>
             {onHomePage ? <Header cityName={weatherObject.name}></Header> : ''}
+            {weatherObject.cod == '404' ? <div><img src='https://i.pinimg.com/564x/e1/a0/f3/e1a0f365063cfc9df56882606321e0b1.jpg'></img></div> : 
+            <>
             <Content cityName={weatherObject.name} weather={weatherObject.weather} main={weatherObject.main}></Content>
             <WeatherInDay></WeatherInDay>
+            </>
+            }
             {onHomePage ? <OtherCity otherCity={otherCity}></OtherCity> : <DetailPage weatherObject={weatherObject}></DetailPage>}
           </setOnHomePageContext.Provider>
         </onHomePageContext.Provider>

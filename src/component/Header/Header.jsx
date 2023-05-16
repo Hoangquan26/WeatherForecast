@@ -14,7 +14,7 @@ const Header = ({cityName}) => {
             <div className='flex text-gray-700 justify-between p-2 pl-4 pr-4 items-center mt-4'>
                 <div className=' flex items-center'>
                     <LocationOnIcon></LocationOnIcon>
-                    <span>{cityName}</span>
+                    <span>{cityName ?? 'Not Found'}</span>
                 </div>
                 <SearchIcon onClick={handleClick}></SearchIcon>
             </div>
