@@ -1,8 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import SearchResult from './SearchResult';
-import SearchResultList from './SearchResultList';
-import { currentCityContext, setCurrentCityContext } from '../weatherContext';
+import { currentCityContext, setCurrentCityContext } from '../../weatherContext.js';
 const SearchInput = ({handleClick}) => {
     const [text, setText] = useState('')
     const ref = useRef(null)
