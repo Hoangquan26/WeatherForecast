@@ -15,7 +15,7 @@ function App() {
   const [onHomePage, setOnHomePage] = useState(true)
   const [otherCity, setOtherCity] = useState([])
   const [currentDate, setCurrentDate] = useState(Object.keys(weatherObject).length > 0 ? new Date(new Date().getTime() +  parseInt(weatherObject?.timezone * 1000 - 7*3600000)) : new Date())
-  console.log(currentDate)
+
   useMemo(() => {
     setCurrentDate(new Date(new Date().getTime() +  parseInt(weatherObject?.timezone * 1000 - 7*3600000)) ?? new Date())
   }, [weatherObject.timezone])

@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import WeatherDetail from './WeatherDetail';
 import WeatherTimeDetail from './WeatherTimeDetail';
 import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined';
-import { onHomePageContext, setOnHomePageContext } from '../../weatherContext';
+import { currentTimeContext, onHomePageContext, setCurrentTimeContext, setOnHomePageContext } from '../../weatherContext';
 import DetailHeader from '../DetailPage/DetailHeader';
 const Content = ({weather, main, cityName, timeZone}) => {
     const setOnHomePage = useContext(onHomePageContext)
     const onHomePage = useContext(setOnHomePageContext)
+    const currentDate = useContext(currentTimeContext)
+    const setCurrentDate = useContext(setCurrentTimeContext)
     let currentWeather = {}
     let temp = 0
     const handleClick = () => {
@@ -24,8 +26,11 @@ const Content = ({weather, main, cityName, timeZone}) => {
             <WeatherDetail weatherId={currentWeather.id} temp={temp} description={currentWeather.description}></WeatherDetail>
             <div>
                 <div className={`${!onHomePage ? ' justify-center' : ''} mt-4 text-left flex items-center`}>
-                    <span className=' pr-2'>Refresh at 3:00</span>
-                    <RotateLeftOutlinedIcon sx={{fontSize : 16}}></RotateLeftOutlinedIcon>
+                    <span className=' pr-2'>{`Refresh at ${currentDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`}</span>
+                    <RotateLeftOutlinedIcon onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentDate(new Date(new Date() - (timeZone*1000 + 7 * 3600000)))}
+                    } sx={{fontSize : 16}}></RotateLeftOutlinedIcon>
                 </div>
             </div>
         </div>
