@@ -92,7 +92,7 @@ function App() {
         <onHomePageContext.Provider value={setOnHomePage}>
           <setOnHomePageContext.Provider value = {onHomePage}>
             {onHomePage ? <Header cityName={weatherObject.name}></Header> : ''}
-            {weatherObject.cod == '404' ? <div><img src='https://i.pinimg.com/564x/e1/a0/f3/e1a0f365063cfc9df56882606321e0b1.jpg'></img></div> : 
+            {weatherObject.cod == '404' ? <div className=' p-10 flex items-center justify-center'><img className=' h-full w-full object-cover object-center' src='https://i.pinimg.com/564x/e1/a0/f3/e1a0f365063cfc9df56882606321e0b1.jpg'></img></div> : 
             <>
             <Content cityName={weatherObject.name} weather={weatherObject.weather} main={weatherObject.main}></Content>
             <WeatherInDay></WeatherInDay>
