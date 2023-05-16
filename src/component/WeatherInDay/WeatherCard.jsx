@@ -57,6 +57,7 @@ const weatherIcon = {
     232: 'https://openweathermap.org/img/wn/11d@2x.png'
 }
 const WeatherCard = ({weather, time, temperature}) => {
+    const valueTime = new Date(time)
     return (
         <>
             <div className=' flex flex-col p-2 pt-4 pb-4 items-center rounded-lg today-card-color mr-2 col-span-1'>
@@ -67,7 +68,9 @@ const WeatherCard = ({weather, time, temperature}) => {
                     <h5 className=' font-medium'>{temperature}&deg; C</h5>
                 </div>
                 <div>
-                    <p>{time}</p>
+                    <p className=' text-sm text-slate-600'>{`${valueTime.getHours() + ':00'}`}</p>
+                    <p className=' text-sm text-slate-600'>{`${valueTime.toDateString()}`}</p>
+                    
                 </div>
             </div>
         </>
