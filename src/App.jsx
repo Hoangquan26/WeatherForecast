@@ -16,6 +16,12 @@ function App() {
   const [otherCity, setOtherCity] = useState([])
   useEffect(() => {
     let ignore = false
+    if(!isLoading) {
+      setIsLoading(true)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 2000);
+    }
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${myApiKey}`)
     .then(response => response.json())
     .then(data => {
@@ -27,7 +33,7 @@ function App() {
         )
         setIsLoading(false)
       }
-    }, [currentCity])
+    })
     .catch(error => console.error(error))
     return () => ignore = true
   },[currentCity])
@@ -36,8 +42,6 @@ function App() {
       'Ho Chi Minh',
       'Tokyo'
   ]
-
-
   useEffect(() => {
     let ignore = false;
     const otherCityPromise = new Promise((resolve) => {
@@ -58,15 +62,6 @@ function App() {
           if(i == 3)
           resolve(newArray)
       })
-      // .then(data => {
-      //   if(otherCity.length > 0)
-      //     setOtherCity([
-      //       ...otherCity,
-      //       newArray
-      //     ])
-      //   else
-      //     setOtherCity(newArray)
-      // })
       .catch(error => console.error(error))
     })
   })
