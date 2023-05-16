@@ -21,7 +21,7 @@ const SearchInput = ({handleClick}) => {
         <form onSubmit={e => handleSubmit(e)} className='flex flex-col text-gray-700 p-2 fixed top-0 left-0 h-full w-full'>
             <div className='rounded-md p-2 bg-white z-10 h-11 flex items-center  m-2'>
                 <input ref={ref} onChange={(e) => {handleType(e)}} placeholder='Search' className='h-full w-full outline-none pl-1'></input>
-                <CloseIcon onClick={handleClick} className=''></CloseIcon>
+                <CloseIcon onClick={handleClick} className=' cursor-pointer'></CloseIcon>
             </div>
             {/* <SearchResultList searchValue={1}></SearchResultList> */}
             <div className=' absolute top-0 left-0 h-full w-full bg-indigo-300'></div>

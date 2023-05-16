@@ -16,7 +16,7 @@ const Header = ({cityName}) => {
                     <LocationOnIcon></LocationOnIcon>
                     <span>{cityName ?? 'Not Found'}</span>
                 </div>
-                <SearchIcon onClick={handleClick}></SearchIcon>
+                <SearchIcon onClick={handleClick} className=' cursor-pointer'></SearchIcon>
             </div>
             : 
             <SearchInput handleClick={handleClick} onFind={onFind}></SearchInput>

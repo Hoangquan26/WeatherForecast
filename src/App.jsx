@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import Header from './component/Header/Header'
 import Content from './component/Content/Content'
 import WeatherInDay from './component/WeatherInDay/WeatherInDay'
-import {currentCityContext, setCurrentCityContext, onHomePageContext, setOnHomePageContext} from './weatherContext.js'
+import {currentCityContext, setCurrentCityContext, onHomePageContext, setOnHomePageContext, currentTimeContext, setCurrentTimeContext} from './weatherContext.js'
 import OtherCity from './component/OtherCity/OtherCity'
 import myApiKey from './myApiKey'
 import DetailPage from './component/DetailPage/DetailPage'
@@ -14,6 +14,11 @@ function App() {
   const [weatherObject, setWeatherObject] = useState({})
   const [onHomePage, setOnHomePage] = useState(true)
   const [otherCity, setOtherCity] = useState([])
+  const [currentDate, setCurrentDate] = useState(Object.keys(weatherObject).length > 0 ? new Date(new Date().getTime() +  parseInt(weatherObject?.timezone * 1000 - 7*3600000)) : new Date())
+  console.log(currentDate)
+  useMemo(() => {
+    setCurrentDate(new Date(new Date().getTime() +  parseInt(weatherObject?.timezone * 1000 - 7*3600000)) ?? new Date())
+  }, [weatherObject.timezone])
   useEffect(() => {
     let timeOutId = null
     let ignore = false
@@ -91,14 +96,18 @@ function App() {
       <setCurrentCityContext.Provider value={setCurrentCity}>
         <onHomePageContext.Provider value={setOnHomePage}>
           <setOnHomePageContext.Provider value = {onHomePage}>
-            {onHomePage ? <Header cityName={weatherObject.name}></Header> : ''}
-            {weatherObject.cod == '404' ? <div className=' p-10 flex items-center justify-center'><img className=' h-full w-full object-cover object-center' src='https://i.pinimg.com/564x/e1/a0/f3/e1a0f365063cfc9df56882606321e0b1.jpg'></img></div> : 
-            <>
-            <Content cityName={weatherObject.name} weather={weatherObject.weather} main={weatherObject.main}></Content>
-            <WeatherInDay></WeatherInDay>
-            </>
-            }
-            {onHomePage ? <OtherCity otherCity={otherCity}></OtherCity> : <DetailPage weatherObject={weatherObject}></DetailPage>}
+            <currentTimeContext.Provider value = {currentDate}>
+              <setCurrentTimeContext.Provider value = {setCurrentDate}>
+                {onHomePage ? <Header cityName={weatherObject.name}></Header> : ''}
+                {weatherObject.cod == '404' ? <div className=' p-10 flex items-center justify-center'><img className=' h-full w-full object-cover object-center' src='https://i.pinimg.com/564x/e1/a0/f3/e1a0f365063cfc9df56882606321e0b1.jpg'></img></div> : 
+                <>
+                <Content cityName={weatherObject.name} weather={weatherObject.weather} main={weatherObject.main} timeZone={weatherObject.timezone}></Content>
+                <WeatherInDay></WeatherInDay>
+                </>
+                }
+                {onHomePage ? <OtherCity otherCity={otherCity}></OtherCity> : <DetailPage weatherObject={weatherObject}></DetailPage>}
+                </setCurrentTimeContext.Provider>
+            </currentTimeContext.Provider>
           </setOnHomePageContext.Provider>
         </onHomePageContext.Provider>
       </setCurrentCityContext.Provider>

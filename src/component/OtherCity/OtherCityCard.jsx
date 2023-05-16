@@ -10,7 +10,7 @@ const OtherCityCard = ({cityName, weather, temp}) => {
         setOnHomePage(false)
     }
     return (
-        <div className='flex justify-between p-4 card-color mt-4 rounded-2xl items-center' onClick={handleClick}>
+        <div className='flex justify-between p-4 card-color mt-4 rounded-2xl items-center cursor-pointer hover:border-blue-400 border-2 transition-all' onClick={handleClick}>
             <div className='h-12 w-12 rounded-full card-image-color mr-2' style={{backGroundColor: '9AB6FF'}}>
                 <img className=' h-full w-full object-cover object-center' src={weatherImgSrc[weather?.id]}></img>
             </div>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { setOnHomePageContext } from '../../weatherContext';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { currentTimeContext, setCurrentTimeContext, setOnHomePageContext } from '../../weatherContext';
 
-const WeatherTimeDetail = () => {
+const WeatherTimeDetail = ({timeZone}) => {
     const month = [
         'January',
         'February',
@@ -26,7 +26,8 @@ const WeatherTimeDetail = () => {
         'Saturday'
     ]
     const onHomePage = useContext(setOnHomePageContext)
-    const [currentDate, setCurrentDate] = useState(new Date())
+    const currentDate = useContext(currentTimeContext)
+    const setCurrentDate = useContext(setCurrentTimeContext)
     let dateString = `${day[currentDate.getDay()]}, ${currentDate.toLocaleDateString()}`
     useEffect(() => {
         let id = setInterval(() => {
